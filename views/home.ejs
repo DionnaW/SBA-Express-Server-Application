@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Express Server App</title>
-    <link rel="stylesheet" href="/318nodeInstall/SBA/public/styles.css">
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     Welcome to Candy Land!!!
@@ -12,5 +12,22 @@
         <input type="text" name="day">
         <button>Go</button>
     </form>
+
+    <% if (isShopping) { %>
+        <p>It is a great day to buy candy!</p>
+    <% } else { %>
+        <p>Okay, just browsing!</p>
+    <% } %>
+
+    <% choices.forEach(choice => { %>
+       <li><%= choice.name %> (<%= choice.types %>)</li>
+    <% }) %>
+
+    <style>
+        body {
+            background-image: url('/318nodeInstall/SBA/images/pexels-monstera-production-5874693.jpg');
+        }
+    </style>
+
 </body>
 </html>

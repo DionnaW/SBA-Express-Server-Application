@@ -1,7 +1,7 @@
 {
   "name": "sba",
   "version": "1.0.0",
-  "description": "",
+  "description": "3-25-24 i have my idea set for the project i created all of my files, folders, and packages taking a break! i have a few routes running, but stuck, so back at it tomorrow",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,5 +12,6 @@
   "dependencies": {
     "ejs": "^3.1.9",
     "express": "^4.19.2"
-  }
+  },
+  "devDependencies": {}
 }
