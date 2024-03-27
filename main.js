@@ -69,23 +69,27 @@ app.delete("/candies/:id", (req, res) => {
 
     if (candyIndex !== -1) {
         candies.splice(candyIndex, 1);
-        res.status(204).send();
+        res.send(result).status(404);
     } else {
-        res.status(404).json({error: "Candy not found"});
+        res.send(results).status({error: "Candy not found"});
     }
 });
 
-//creating a put route for the candy in the exclusive category, if it's found
-app.put("/candies/:id", (req, res) => {
+//creating a patch route for the candy in the exclusive category, if it's found
+app.patch('/candies/:id', (req, res) => {
     const candyId = parseInt(req.params.id);
-
     const candyIndex = candies.findIndex(candy => candy.id === candyId);
 
     if (candyIndex !== -1) {
-        candies[candyIndex].name = req.body.name;
-        res.json(candies[candyIndex]);
+        if(req.body.name) {
+            candies[candyIndex].name = req.body.name;
+        }
+        if (req.body.price) {
+            candies[candyIndex].price = req.body.price;
+        }
+        res.send(candies[candyIndex]);
     } else {
-        res.status(404).json({error: "Candy not found"});
+        res.send(result).status({ error: 'Candy not found'});
     }
 });
 
