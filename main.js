@@ -1,8 +1,9 @@
 //getting started with application
 const express = require('express');
 const app = express();
+const port = 4000;
 
-//making a path so engine views can be added
+//making a path for engine views 
 const path = require('path');
 
 //global middleware for all routes
@@ -69,10 +70,21 @@ app.delete("/candies/:id", (req, res) => {
 
     if (candyIndex !== -1) {
         candies.splice(candyIndex, 1);
-        res.send(result).status(404);
+        res.status(204).send();
     } else {
-        res.send(results).status({error: "Candy not found"});
+        res.status(404).json({error: "Candy not found"});
     }
+});
+
+//creating route to retrieve all candies
+app.get("/candies", (req, res) => {
+    res.json(candies);
+});
+
+//cresting route to create a new candy
+app.post("/candies", (req, res) => {
+    //creating new code for candy
+    res.status(201).json({ message: "Candy created"});
 });
 
 //creating a patch route for the candy in the exclusive category, if it's found
@@ -87,15 +99,15 @@ app.patch('/candies/:id', (req, res) => {
         if (req.body.price) {
             candies[candyIndex].price = req.body.price;
         }
-        res.send(candies[candyIndex]);
+        res.json(candies[candyIndex]);
     } else {
-        res.send(result).status({ error: 'Candy not found'});
+        res.status(404).json({ error: 'Candy not found'});
     }
 });
 
 //post route for response from get request
 app.post("/result", (req, res) => {
-    if(req.body.day.trim().toUpperCase() === "EVERYDAY") {
+    if(req.body.day === "EVERYDAY") {
       res.send("Yay, that is the best answer!")
     } else {
       res.send("Wrong answer, try again!")
@@ -107,6 +119,9 @@ app.get("/result", (req, res) => {
     res.send("This page is invalid, go back!")
 })
 
-app.listen(4000);
+app.listen(port, () => {
+    console.log(`Server listening on port: ${port}.`);
+  });
+  
 
 
