@@ -2,6 +2,12 @@
 const express = require('express');
 const app = express();
 const port = 4000;
+const candies = require("./data/candies");
+
+
+
+
+
 
 //making a path for engine views 
 const path = require('path');
@@ -36,7 +42,8 @@ app.get("/", (req, res) => {
         choices: [
             {name: "Hard Candy", types: "all flavors"}, 
             {name: "Soft Candy", types: "all flavors"}, 
-            {name: "Chewing Candy", types: "all flavors"}
+            {name: "Chewing Candy", types: "all flavors"},
+            {name: "Special Candy", types: "sugar free"}
         ]
     })
 })
@@ -69,10 +76,10 @@ app.delete("/candies/:id", (req, res) => {
     const candyIndex = candies.findIndex(candy => candy.id === candyId);
 
     if (candyIndex !== -1) {
-        candies.splice(candyIndex, 1);
-        res.status(204).send();
+        const deletedCandy = candies.splice(candyIndex, 1);
+        res.json(deletedCandy);
     } else {
-        res.status(404).json({error: "Candy not found"});
+        res.status(404).json({message: "Candy not found"});
     }
 });
 
@@ -107,7 +114,7 @@ app.patch('/candies/:id', (req, res) => {
 
 //post route for response from get request
 app.post("/result", (req, res) => {
-    if(req.body.day === "EVERYDAY") {
+    if(req.body.day === "today") {
       res.send("Yay, that is the best answer!")
     } else {
       res.send("Wrong answer, try again!")
