@@ -5,16 +5,12 @@ const port = 4000;
 const candies = require("./data/candies");
 
 
-
-
-
-
 //making a path for engine views 
 const path = require('path');
 
 //global middleware for all routes
 app.use(express.urlencoded({extended: false}));
-
+  
 //custom middleware for buyCandy
 app.use(buyCandy);
 
